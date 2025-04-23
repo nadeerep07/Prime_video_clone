@@ -1,6 +1,6 @@
 import 'dart:async';
-import 'package:amazon_prime_clone/screens/home_screen.dart';
 import 'package:amazon_prime_clone/screens/login_screen.dart';
+import 'package:amazon_prime_clone/widgets/bottom_nav_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -30,7 +30,7 @@ class _SplashScreenState extends State<SplashScreen> {
         MaterialPageRoute(
           builder:
               (context) =>
-                  isLoggedIn ? const HomeScreen() : const LoginScreen(),
+                  isLoggedIn ? const BottomNavBar() : const LoginScreen(),
         ),
       );
     }
@@ -45,9 +45,10 @@ class _SplashScreenState extends State<SplashScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset(
-              'assets/images/amazon_logo.png',
-              height: 100,
-              width: 200,
+              // 'assets/images/amazon_logo.png',
+              'assets/images/Prime-Video-Logo-PNG-removebg-preview.png',
+              height: 200,
+              width: 300,
               fit: BoxFit.contain,
             ),
             const SizedBox(height: 20),

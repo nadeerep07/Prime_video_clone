@@ -1,5 +1,5 @@
-import 'package:amazon_prime_clone/screens/home_screen.dart';
 import 'package:amazon_prime_clone/screens/login_screen.dart';
+import 'package:amazon_prime_clone/widgets/bottom_nav_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -45,7 +45,7 @@ class _PasswordScreenState extends State<PasswordScreen> {
     } else if (isLoggedIn && mounted) {
       Navigator.pushAndRemoveUntil(
         context,
-        MaterialPageRoute(builder: (context) => HomeScreen()),
+        MaterialPageRoute(builder: (context) => BottomNavBar()),
         (route) => false,
       );
     } else {
@@ -60,9 +60,10 @@ class _PasswordScreenState extends State<PasswordScreen> {
       await prefs.setBool('isLoggedIn', true);
 
       if (mounted) {
-        Navigator.pushReplacement(
+        Navigator.pushAndRemoveUntil(
           context,
-          MaterialPageRoute(builder: (context) => HomeScreen()),
+          MaterialPageRoute(builder: (context) => BottomNavBar()),
+          (route) => false,
         );
       }
     } else {
