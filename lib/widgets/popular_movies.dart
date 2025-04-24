@@ -1,13 +1,13 @@
-import 'package:amazon_prime_clone/models/popuar_tv_show_model.dart';
+import 'package:amazon_prime_clone/models/popular_movies_model.dart';
 import 'package:amazon_prime_clone/screens/detail_screen.dart';
 import 'package:flutter/material.dart';
 
-class TopMovies extends StatelessWidget {
-  final Future<PopularTvShowModel> future;
+class PopularMovies extends StatelessWidget {
+  final Future<MovieResponse> future;
   // final Future<TopRatedMoviesModel> future;
   final String headLineText;
   final int startIndex;
-  const TopMovies({
+  const PopularMovies({
     super.key,
     required this.future,
     required this.headLineText,
@@ -27,7 +27,7 @@ class TopMovies extends StatelessWidget {
             snapshot.data?.results.isEmpty == true) {
           return const Center(child: Text('No movies found'));
         }
-        var data = snapshot.data?.results;
+        final data = snapshot.data?.results;
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -49,11 +49,7 @@ class TopMovies extends StatelessWidget {
               child: Stack(
                 children: [
                   ListView.builder(
-                    itemCount: (data!.length - startIndex).clamp(
-                      0,
-                      data.length,
-                    ),
-
+                    itemCount: data?.length ?? 0,
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (context, index) {
                       return Container(
@@ -68,7 +64,7 @@ class TopMovies extends StatelessWidget {
                                   MaterialPageRoute(
                                     builder:
                                         (context) => MovieScreen(
-                                          tvShow: data![index + startIndex],
+                                          movie: data![index + startIndex],
                                         ),
                                   ),
                                 );

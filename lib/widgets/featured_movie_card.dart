@@ -2,12 +2,11 @@ import 'package:amazon_prime_clone/models/popular_movies_model.dart';
 import 'package:amazon_prime_clone/screens/detail_screen.dart';
 import 'package:flutter/material.dart';
 
-class MovieCard extends StatelessWidget {
+class RectangleMovieCard extends StatelessWidget {
   final Future<MovieResponse> future;
-  // final Future<TopRatedMoviesModel> future;
   final String headLineText;
   final int startIndex;
-  const MovieCard({
+  const RectangleMovieCard({
     super.key,
     required this.future,
     required this.headLineText,
@@ -45,14 +44,15 @@ class MovieCard extends StatelessWidget {
             const SizedBox(height: 10),
 
             SizedBox(
-              height: 120,
+              height: 206,
               child: ListView.builder(
                 itemCount: (data!.length - startIndex).clamp(0, data.length),
+
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) {
                   return Container(
                     margin: const EdgeInsets.only(left: 20),
-                    width: 200,
+                    width: 150,
                     child: Stack(
                       children: [
                         GestureDetector(
@@ -80,21 +80,21 @@ class MovieCard extends StatelessWidget {
                           ),
                         ),
                         const Positioned(
-                          bottom: 4,
-                          left: 4,
+                          bottom: 6,
+                          left: 6,
                           child: Row(
                             children: [
                               Icon(
                                 Icons.local_mall,
                                 color: Colors.yellow,
-                                size: 14,
+                                size: 12,
                               ),
-                              SizedBox(width: 4),
+                              SizedBox(width: 3),
                               Text(
-                                'subscribe or rent',
+                                'Subscribe',
                                 style: TextStyle(
                                   color: Colors.white,
-                                  fontSize: 12,
+                                  fontSize: 15,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),

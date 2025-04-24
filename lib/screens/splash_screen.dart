@@ -45,14 +45,14 @@ class _SplashScreenState extends State<SplashScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset(
-              // 'assets/images/amazon_logo.png',
-              'assets/images/Prime-Video-Logo-PNG-removebg-preview.png',
+              'assets/images/amazon_logo.png',
+              // 'assets/images/Prime-Video-Logo-PNG-removebg-preview.png',
               height: 200,
               width: 300,
               fit: BoxFit.contain,
             ),
             const SizedBox(height: 20),
-            const CircularProgressIndicator(color: Colors.blue, strokeWidth: 4),
+            // const CircularProgressIndicator(color: Colors.blue, strokeWidth: 4),
           ],
         ),
       ),

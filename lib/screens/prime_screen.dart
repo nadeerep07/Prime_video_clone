@@ -1,21 +1,20 @@
 import 'package:amazon_prime_clone/models/popuar_tv_show_model.dart';
 import 'package:amazon_prime_clone/models/popular_movies_model.dart';
 import 'package:amazon_prime_clone/services/api_services.dart';
-import 'package:amazon_prime_clone/widgets/movie_card.dart';
 import 'package:amazon_prime_clone/widgets/featured_movie_card.dart';
-import 'package:amazon_prime_clone/widgets/top_carousel.dart';
-import 'package:amazon_prime_clone/widgets/top_movies.dart';
+import 'package:amazon_prime_clone/widgets/popular_movies.dart';
+import 'package:amazon_prime_clone/widgets/prime_top_silder.dart';
 import 'package:flutter/material.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+class PrimeScreen extends StatefulWidget {
+  const PrimeScreen({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<PrimeScreen> createState() => _PrimeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
-  late Future<MovieResponse> popularMoviesFuture;
+class _PrimeScreenState extends State<PrimeScreen> {
+  late Future<MovieResponse> latestMoviesFuture;
   late Future<MovieResponse> topRatedMoviesFuture;
   late Future<PopularTvShowModel> topRatedTvFuture;
 
@@ -23,7 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
-    popularMoviesFuture = apiServices.getPopularMovies();
+    latestMoviesFuture = apiServices.getLatestMovie();
     topRatedMoviesFuture = apiServices.getTopMovies();
     topRatedTvFuture = apiServices.getTopTv();
     super.initState();
@@ -31,7 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Future<void> _refreshMovies() async {
     setState(() {
-      popularMoviesFuture = apiServices.getPopularMovies();
+      latestMoviesFuture = apiServices.getLatestMovie();
       topRatedMoviesFuture = apiServices.getTopMovies();
     });
   }
@@ -56,11 +55,13 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Image.asset(
-                        'assets/images/Prime-Video-Logo-PNG-removebg-preview.png',
-                        height: 50,
-                        width: 70,
-                        fit: BoxFit.contain,
+                      Text(
+                        'Prime',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 30,
+                          fontWeight: FontWeight.w700,
+                        ),
                       ),
                       Row(
                         children: [
@@ -101,13 +102,12 @@ class _HomeScreenState extends State<HomeScreen> {
           child: ListView(
             physics: const AlwaysScrollableScrollPhysics(),
             children: [
-              TopCarousel(),
+              PrimeTopSilder(),
               SizedBox(
                 height: 164,
-                child: MovieCard(
-                  future: popularMoviesFuture,
-                  headLineText: 'Recommended with subscription',
-                  startIndex: 3,
+                child: PopularMovies(
+                  future: latestMoviesFuture,
+                  headLineText: 'Top Movies >',
                 ),
               ),
               const SizedBox(height: 10),
@@ -117,24 +117,23 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: RectangleMovieCard(
                   future: topRatedMoviesFuture,
                   headLineText: 'Featured Originals: Series >',
+                ),
+              ),
+              const SizedBox(height: 10),
+              SizedBox(
+                height: 164,
+                child: PopularMovies(
+                  future: latestMoviesFuture,
+                  headLineText: 'Crime Movies >',
+                  startIndex: 3,
+                ),
+              ),
+              SizedBox(
+                height: 164,
+                child: PopularMovies(
+                  future: latestMoviesFuture,
+                  headLineText: 'Recommended >',
                   startIndex: 5,
-                ),
-              ),
-              const SizedBox(height: 10),
-              SizedBox(
-                height: 197,
-                child: TopMovies(
-                  future: topRatedTvFuture,
-                  headLineText: 'MX Player: Poplar Movies >',
-                ),
-              ),
-              const SizedBox(height: 10),
-              SizedBox(
-                height: 197,
-                child: TopMovies(
-                  future: topRatedTvFuture,
-                  headLineText: 'Trending Tv shows >',
-                  startIndex: 2,
                 ),
               ),
             ],
@@ -154,8 +153,6 @@ class _HomeScreenState extends State<HomeScreen> {
             _buildNavTab('Movies'),
             const SizedBox(width: 10),
             _buildNavTab('TV shows'),
-            const SizedBox(width: 10),
-            _buildNavTab('Live TV'),
           ],
         ),
       ),

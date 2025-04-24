@@ -1,15 +1,16 @@
-class TopRatedTvShowModel {
+class PopularTvShowModel {
   final int page;
   final List<TvShow> results;
 
-  TopRatedTvShowModel({required this.page, required this.results});
+  PopularTvShowModel({required this.page, required this.results});
 
-  factory TopRatedTvShowModel.fromJson(Map<String, dynamic> json) {
-    return TopRatedTvShowModel(
+  factory PopularTvShowModel.fromJson(Map<String, dynamic> json) {
+    return PopularTvShowModel(
       page: json['page'],
-      results: List<TvShow>.from(
-        json['results'].map((x) => TvShow.fromJson(x)),
-      ),
+      results:
+          (json['results'] as List)
+              .map((item) => TvShow.fromJson(item))
+              .toList(),
     );
   }
 }

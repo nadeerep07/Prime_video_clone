@@ -1,3 +1,4 @@
+import 'package:amazon_prime_clone/models/popuar_tv_show_model.dart';
 import 'package:amazon_prime_clone/models/popular_movies_model.dart';
 import 'package:amazon_prime_clone/screens/detail_screen.dart';
 import 'package:amazon_prime_clone/services/api_services.dart';
@@ -5,25 +6,25 @@ import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-class TopCarousel extends StatefulWidget {
+class PrimeTopSilder extends StatefulWidget {
   @override
-  _TopCarouselState createState() => _TopCarouselState();
+  _PrimeTopSilderState createState() => _PrimeTopSilderState();
 }
 
-class _TopCarouselState extends State<TopCarousel> {
+class _PrimeTopSilderState extends State<PrimeTopSilder> {
   int activeIndex = 0;
   final CarouselSliderController carouselController =
       CarouselSliderController();
 
-  final int totalItems = 28;
+  final int totalItems = 12;
   final int visibleDots = 5;
-  late Future<MovieResponse> popularMoviesFuture;
+  late Future<MovieResponse> topRatedTVFuture;
   ApiServices apiServices = ApiServices();
 
   @override
   void initState() {
     super.initState();
-    popularMoviesFuture = apiServices.getPopularMovies();
+    topRatedTVFuture = apiServices.getUpcomingMovie();
   }
 
   @override
@@ -31,7 +32,7 @@ class _TopCarouselState extends State<TopCarousel> {
     // final data = apiServices.getPopularMovies();
     // log(data.toString());
     return FutureBuilder<MovieResponse>(
-      future: popularMoviesFuture,
+      future: topRatedTVFuture,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(child: CircularProgressIndicator());
@@ -73,7 +74,6 @@ class _TopCarouselState extends State<TopCarousel> {
                           );
                         },
                         child: ClipRRect(
-                          borderRadius: BorderRadius.circular(10),
                           child: Image.network(
                             'https://image.tmdb.org/t/p/w500${movie.backdropPath}',
                             fit: BoxFit.cover,
@@ -101,7 +101,7 @@ class _TopCarouselState extends State<TopCarousel> {
                         Icon(Icons.local_mall, color: Colors.yellow, size: 16),
                         SizedBox(width: 5),
                         Text(
-                          'Watch with prime',
+                          'First episode free',
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 14,

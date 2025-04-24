@@ -3,18 +3,18 @@ import 'package:amazon_prime_clone/models/popular_movies_model.dart';
 import 'package:amazon_prime_clone/services/api_services.dart';
 import 'package:amazon_prime_clone/widgets/movie_card.dart';
 import 'package:amazon_prime_clone/widgets/featured_movie_card.dart';
-import 'package:amazon_prime_clone/widgets/top_carousel.dart';
+import 'package:amazon_prime_clone/widgets/sub_top_slider.dart';
 import 'package:amazon_prime_clone/widgets/top_movies.dart';
 import 'package:flutter/material.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+class SubscriptionScreen extends StatefulWidget {
+  const SubscriptionScreen({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<SubscriptionScreen> createState() => _SubscriptionScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _SubscriptionScreenState extends State<SubscriptionScreen> {
   late Future<MovieResponse> popularMoviesFuture;
   late Future<MovieResponse> topRatedMoviesFuture;
   late Future<PopularTvShowModel> topRatedTvFuture;
@@ -42,7 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
       backgroundColor: Colors.black,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(
-          120.0,
+          80.0,
         ), // Increased height to fit tabs
         child: Container(
           color: Colors.black,
@@ -56,11 +56,13 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Image.asset(
-                        'assets/images/Prime-Video-Logo-PNG-removebg-preview.png',
-                        height: 50,
-                        width: 70,
-                        fit: BoxFit.contain,
+                      Text(
+                        'Subscription',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 30,
+                          fontWeight: FontWeight.w700,
+                        ),
                       ),
                       Row(
                         children: [
@@ -84,9 +86,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     ],
                   ),
                 ),
-
-                // Navigation Tabs
-                _buildNavigationTabs(),
               ],
             ),
           ),
@@ -101,13 +100,12 @@ class _HomeScreenState extends State<HomeScreen> {
           child: ListView(
             physics: const AlwaysScrollableScrollPhysics(),
             children: [
-              TopCarousel(),
+              SubTopSlider(),
               SizedBox(
                 height: 164,
                 child: MovieCard(
                   future: popularMoviesFuture,
-                  headLineText: 'Recommended with subscription',
-                  startIndex: 3,
+                  headLineText: 'discovery+: Most popular >',
                 ),
               ),
               const SizedBox(height: 10),
@@ -116,65 +114,18 @@ class _HomeScreenState extends State<HomeScreen> {
                 width: 150,
                 child: RectangleMovieCard(
                   future: topRatedMoviesFuture,
-                  headLineText: 'Featured Originals: Series >',
-                  startIndex: 5,
+                  headLineText: 'Subscription you might like ',
                 ),
               ),
-              const SizedBox(height: 10),
               SizedBox(
                 height: 197,
                 child: TopMovies(
                   future: topRatedTvFuture,
-                  headLineText: 'MX Player: Poplar Movies >',
-                ),
-              ),
-              const SizedBox(height: 10),
-              SizedBox(
-                height: 197,
-                child: TopMovies(
-                  future: topRatedTvFuture,
-                  headLineText: 'Trending Tv shows >',
-                  startIndex: 2,
+                  headLineText: 'Top tv shows >',
                 ),
               ),
             ],
           ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildNavigationTabs() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8.0),
-        child: Row(
-          children: [
-            _buildNavTab('Movies'),
-            const SizedBox(width: 10),
-            _buildNavTab('TV shows'),
-            const SizedBox(width: 10),
-            _buildNavTab('Live TV'),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildNavTab(String title) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.white54),
-        borderRadius: BorderRadius.circular(16),
-      ),
-      child: Text(
-        title,
-        style: const TextStyle(
-          color: Colors.white,
-          fontSize: 12,
-          fontWeight: FontWeight.w500,
         ),
       ),
     );

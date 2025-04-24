@@ -1,3 +1,7 @@
+import 'package:amazon_prime_clone/screens/downloads_screen.dart';
+import 'package:amazon_prime_clone/screens/prime_screen.dart';
+import 'package:amazon_prime_clone/screens/search_screen.dart';
+import 'package:amazon_prime_clone/screens/subscription_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:amazon_prime_clone/screens/home_screen.dart';
 
@@ -43,9 +47,9 @@ class _BottomNavBarState extends State<BottomNavBar>
                   color: Colors.transparent,
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.white.withOpacity(0.15),
+                      color: Colors.white.withValues(alpha: 0.15),
                       blurRadius: 30,
-                      spreadRadius: 5, // Adjusted for more visible glow
+                      spreadRadius: 5,
                       offset: const Offset(0, -3),
                     ),
                   ],
@@ -84,12 +88,12 @@ class _BottomNavBarState extends State<BottomNavBar>
       body: TabBarView(
         physics: const NeverScrollableScrollPhysics(),
         controller: _tabController,
-        children: const [
+        children: [
           HomeScreen(),
-          Center(child: Text('Prime')),
-          Center(child: Text('Subscriptions')),
-          Center(child: Text('Downloads')),
-          Center(child: Text('Search')),
+          PrimeScreen(),
+          SubscriptionScreen(),
+          DownloadScreen(),
+          SearchScreen(),
         ],
       ),
     );
