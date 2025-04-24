@@ -1,4 +1,3 @@
-import 'package:amazon_prime_clone/models/popuar_tv_show_model.dart';
 import 'package:amazon_prime_clone/models/popular_movies_model.dart';
 import 'package:amazon_prime_clone/screens/detail_screen.dart';
 import 'package:amazon_prime_clone/services/api_services.dart';

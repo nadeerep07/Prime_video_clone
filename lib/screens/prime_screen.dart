@@ -1,3 +1,4 @@
+import 'package:amazon_prime_clone/helper/responsive_helper.dart';
 import 'package:amazon_prime_clone/models/popuar_tv_show_model.dart';
 import 'package:amazon_prime_clone/models/popular_movies_model.dart';
 import 'package:amazon_prime_clone/services/api_services.dart';
@@ -37,12 +38,15 @@ class _PrimeScreenState extends State<PrimeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final responsive = Responsive(context);
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(
-          120.0,
-        ), // Increased height to fit tabs
+        preferredSize: Size.fromHeight(
+          responsive.isMobile
+              ? responsive.height * 0.14
+              : responsive.height * 0.12,
+        ),
         child: Container(
           color: Colors.black,
           child: SafeArea(
@@ -51,7 +55,9 @@ class _PrimeScreenState extends State<PrimeScreen> {
               children: [
                 // Top row with logo and actions
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: responsive.width * 0.03,
+                  ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -67,16 +73,26 @@ class _PrimeScreenState extends State<PrimeScreen> {
                         children: [
                           IconButton(
                             onPressed: () {},
-                            icon: Icon(Icons.cast, color: Colors.white),
+                            icon: Icon(
+                              Icons.cast,
+                              color: Colors.white,
+                              size: responsive.isMobile ? 24 : 28,
+                            ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 8.0,
+                            padding: EdgeInsets.symmetric(
+                              horizontal: responsive.width * 0.02,
                             ),
                             child: Image.asset(
                               'assets/images/person_icon.jpg',
-                              height: 40,
-                              width: 40,
+                              height:
+                                  responsive.isMobile
+                                      ? responsive.height * 0.05
+                                      : responsive.height * 0.06,
+                              width:
+                                  responsive.isMobile
+                                      ? responsive.width * 0.1
+                                      : responsive.width * 0.08,
                               fit: BoxFit.cover,
                             ),
                           ),
@@ -87,7 +103,7 @@ class _PrimeScreenState extends State<PrimeScreen> {
                 ),
 
                 // Navigation Tabs
-                _buildNavigationTabs(),
+                _buildNavigationTabs(responsive),
               ],
             ),
           ),
@@ -102,26 +118,45 @@ class _PrimeScreenState extends State<PrimeScreen> {
           child: ListView(
             physics: const AlwaysScrollableScrollPhysics(),
             children: [
-              PrimeTopSilder(),
               SizedBox(
-                height: 164,
+                height:
+                    responsive.isMobile
+                        ? responsive.height * 0.28
+                        : responsive.height * 0.35,
+                child: PrimeTopSilder(),
+              ),
+
+              SizedBox(
+                height:
+                    responsive.isMobile
+                        ? responsive.height * 0.2
+                        : responsive.height * 0.25,
                 child: PopularMovies(
                   future: latestMoviesFuture,
                   headLineText: 'Top Movies >',
                 ),
               ),
-              const SizedBox(height: 10),
+              SizedBox(height: responsive.height * 0.01),
               SizedBox(
-                height: 250,
-                width: 150,
+                height:
+                    responsive.isMobile
+                        ? responsive.height * 0.30
+                        : responsive.height * 0.3,
+                width:
+                    responsive.isMobile
+                        ? responsive.width * 0.4
+                        : responsive.width * 0.3,
                 child: RectangleMovieCard(
                   future: topRatedMoviesFuture,
                   headLineText: 'Featured Originals: Series >',
                 ),
               ),
-              const SizedBox(height: 10),
+              SizedBox(height: responsive.height * 0.01),
               SizedBox(
-                height: 164,
+                height:
+                    responsive.isMobile
+                        ? responsive.height * 0.2
+                        : responsive.height * 0.25,
                 child: PopularMovies(
                   future: latestMoviesFuture,
                   headLineText: 'Crime Movies >',
@@ -129,7 +164,10 @@ class _PrimeScreenState extends State<PrimeScreen> {
                 ),
               ),
               SizedBox(
-                height: 164,
+                height:
+                    responsive.isMobile
+                        ? responsive.height * 0.2
+                        : responsive.height * 0.25,
                 child: PopularMovies(
                   future: latestMoviesFuture,
                   headLineText: 'Recommended >',
@@ -143,34 +181,37 @@ class _PrimeScreenState extends State<PrimeScreen> {
     );
   }
 
-  Widget _buildNavigationTabs() {
+  Widget _buildNavigationTabs(Responsive responsive) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8),
+      padding: EdgeInsets.symmetric(vertical: responsive.height * 0.01),
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+        padding: EdgeInsets.symmetric(horizontal: responsive.width * 0.03),
         child: Row(
           children: [
-            _buildNavTab('Movies'),
-            const SizedBox(width: 10),
-            _buildNavTab('TV shows'),
+            _buildNavTab('Movies', responsive),
+            SizedBox(width: responsive.width * 0.03),
+            _buildNavTab('TV shows', responsive),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildNavTab(String title) {
+  Widget _buildNavTab(String title, Responsive responsive) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+      padding: EdgeInsets.symmetric(
+        horizontal: responsive.width * 0.03,
+        vertical: responsive.height * 0.005,
+      ),
       decoration: BoxDecoration(
         border: Border.all(color: Colors.white54),
         borderRadius: BorderRadius.circular(16),
       ),
       child: Text(
         title,
-        style: const TextStyle(
+        style: TextStyle(
           color: Colors.white,
-          fontSize: 12,
+          fontSize: responsive.isMobile ? 12 : 14,
           fontWeight: FontWeight.w500,
         ),
       ),

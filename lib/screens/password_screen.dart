@@ -13,7 +13,7 @@ class PasswordScreen extends StatefulWidget {
 class _PasswordScreenState extends State<PasswordScreen> {
   final TextEditingController _inputController = TextEditingController();
   String? _errorMessage;
-  bool _isLoading = true;
+  bool isLoading = true;
   bool _isPasswordVisible = false;
 
   String _email = '';
@@ -49,7 +49,7 @@ class _PasswordScreenState extends State<PasswordScreen> {
         (route) => false,
       );
     } else {
-      setState(() => _isLoading = false);
+      setState(() => isLoading = false);
     }
   }
 

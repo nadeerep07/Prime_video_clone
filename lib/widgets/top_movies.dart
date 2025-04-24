@@ -68,7 +68,7 @@ class TopMovies extends StatelessWidget {
                                   MaterialPageRoute(
                                     builder:
                                         (context) => MovieScreen(
-                                          tvShow: data![index + startIndex],
+                                          tvShow: data[index + startIndex],
                                         ),
                                   ),
                                 );
@@ -78,7 +78,7 @@ class TopMovies extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(10),
                                   image: DecorationImage(
                                     image: NetworkImage(
-                                      "https://image.tmdb.org/t/p/w500${data?[index + startIndex].posterPath}",
+                                      "https://image.tmdb.org/t/p/w500${data[index + startIndex].posterPath}",
                                     ),
                                     fit: BoxFit.fill,
                                   ),

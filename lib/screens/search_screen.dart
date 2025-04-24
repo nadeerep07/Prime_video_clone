@@ -3,7 +3,7 @@ import 'package:amazon_prime_clone/models/popular_movies_model.dart';
 import 'package:amazon_prime_clone/models/search_model.dart';
 import 'package:amazon_prime_clone/screens/detail_screen.dart';
 import 'package:amazon_prime_clone/services/api_services.dart';
-import 'package:amazon_prime_clone/widgets/__language_tile.dart';
+import 'package:amazon_prime_clone/widgets/language_tile.dart';
 import 'package:amazon_prime_clone/widgets/genre_button.dart';
 import 'package:flutter/material.dart';
 

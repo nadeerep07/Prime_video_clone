@@ -3,7 +3,7 @@ import 'package:amazon_prime_clone/screens/detail_screen.dart';
 import 'package:flutter/material.dart';
 
 class MovieCard extends StatelessWidget {
-  final Future<MovieResponse> future;
+  final Future<MovieResponse>? future;
   // final Future<TopRatedMoviesModel> future;
   final String headLineText;
   final int startIndex;

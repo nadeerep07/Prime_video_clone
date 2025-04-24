@@ -1,3 +1,4 @@
+import 'package:amazon_prime_clone/helper/responsive_helper.dart';
 import 'package:amazon_prime_clone/models/popuar_tv_show_model.dart';
 import 'package:amazon_prime_clone/models/popular_movies_model.dart';
 import 'package:amazon_prime_clone/services/api_services.dart';
@@ -38,21 +39,21 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final responsive = Responsive(context);
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(
-          80.0,
-        ), // Increased height to fit tabs
+        preferredSize: const Size.fromHeight(80.0),
         child: Container(
           color: Colors.black,
           child: SafeArea(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                // Top row with logo and actions
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: responsive.width * 0.03,
+                  ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -68,16 +69,26 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
                         children: [
                           IconButton(
                             onPressed: () {},
-                            icon: Icon(Icons.cast, color: Colors.white),
+                            icon: Icon(
+                              Icons.cast,
+                              color: Colors.white,
+                              size: responsive.isMobile ? 24 : 28,
+                            ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 8.0,
+                            padding: EdgeInsets.symmetric(
+                              horizontal: responsive.width * 0.02,
                             ),
                             child: Image.asset(
                               'assets/images/person_icon.jpg',
-                              height: 40,
-                              width: 40,
+                              height:
+                                  responsive.isMobile
+                                      ? responsive.height * 0.05
+                                      : responsive.height * 0.06,
+                              width:
+                                  responsive.isMobile
+                                      ? responsive.width * 0.1
+                                      : responsive.width * 0.08,
                               fit: BoxFit.cover,
                             ),
                           ),
@@ -100,25 +111,45 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
           child: ListView(
             physics: const AlwaysScrollableScrollPhysics(),
             children: [
-              SubTopSlider(),
               SizedBox(
-                height: 164,
+                height:
+                    responsive.isMobile
+                        ? responsive.height * 0.28
+                        : responsive.height * 0.35,
+                child: SubTopSlider(),
+              ),
+
+              SizedBox(
+                height:
+                    responsive.isMobile
+                        ? responsive.height * 0.2
+                        : responsive.height * 0.25,
                 child: MovieCard(
                   future: popularMoviesFuture,
                   headLineText: 'discovery+: Most popular >',
                 ),
               ),
-              const SizedBox(height: 10),
+              SizedBox(height: responsive.height * 0.01),
               SizedBox(
-                height: 250,
-                width: 150,
+                height:
+                    responsive.isMobile
+                        ? responsive.height * 0.30
+                        : responsive.height * 0.3,
+                width:
+                    responsive.isMobile
+                        ? responsive.width * 0.4
+                        : responsive.width * 0.3,
                 child: RectangleMovieCard(
                   future: topRatedMoviesFuture,
                   headLineText: 'Subscription you might like ',
                 ),
               ),
+              SizedBox(height: responsive.height * 0.01),
               SizedBox(
-                height: 197,
+                height:
+                    responsive.isMobile
+                        ? responsive.height * 0.2
+                        : responsive.height * 0.25,
                 child: TopMovies(
                   future: topRatedTvFuture,
                   headLineText: 'Top tv shows >',

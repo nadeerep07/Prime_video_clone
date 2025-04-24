@@ -49,7 +49,10 @@ class PopularMovies extends StatelessWidget {
               child: Stack(
                 children: [
                   ListView.builder(
-                    itemCount: data?.length ?? 0,
+                    itemCount: (data!.length - startIndex).clamp(
+                      0,
+                      data.length,
+                    ),
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (context, index) {
                       return Container(
@@ -64,7 +67,7 @@ class PopularMovies extends StatelessWidget {
                                   MaterialPageRoute(
                                     builder:
                                         (context) => MovieScreen(
-                                          movie: data![index + startIndex],
+                                          movie: data[index + startIndex],
                                         ),
                                   ),
                                 );
@@ -74,7 +77,7 @@ class PopularMovies extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(10),
                                   image: DecorationImage(
                                     image: NetworkImage(
-                                      "https://image.tmdb.org/t/p/w500${data?[index + startIndex].posterPath}",
+                                      "https://image.tmdb.org/t/p/w500${data[index + startIndex].posterPath}",
                                     ),
                                     fit: BoxFit.fill,
                                   ),
